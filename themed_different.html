@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+	<title>Theme Differentiator</title>
+
+	</head>
+
+	<style>
+	html, body {
+		margin: 0;
+		padding: 0;
+		height: 100%;
+		width: 100%;
+		font-family: Verdana, sans-serif;
+	}
+	.theme-light {
+		--color-primary: #0060df;
+		--color-secondary: #fbfbfe;
+		--color-accent: #fd6f53;
+		--font-color: #000000;
+	}
+	.theme-dark {
+	   --color-primary: #17ed90;
+	   --color-secondary: #243133;
+	   --color-accent: #12cdea;
+	   --font-color: #ffffff;
+	}
+	.first-show, .second-show {
+		display: none;
+	}
+	.container {
+		display: flex;
+		width: 100%;
+		height: 100%;
+		background: var(--color-secondary);
+		flex-direction: column;
+		justify-content: center;
+		color: var(--font-color);
+	}
+	.container h1{
+		color: var(--font-color);
+	}
+	.container button {
+		color: var(--font-color);
+		background: var(--color-primary);
+		padding: 10px 20px;
+		border: 0;
+		display: inline-block;
+	}
+	.info {
+		padding: 25px;
+		margin: 5px;
+	}
+	</style>
+
+	<body>
+
+		<div class="container">
+	        <h1>Theme Changer</h1>
+	        <button id="switch" onclick="toggleTheme()">Switch</button>
+	  
+			<p>blah blah blah...</p>
+			<article class="first-show info">This is a message one</article>
+			<article class="second-show info">This is a message two</article>
+			<article class="first-show info">This is another message one</article>
+
+  </div>
+
+	</body>
+	<script>
+function setTheme(themeName) {
+	localStorage.setItem('theme', themeName);
+	document.documentElement.className = themeName;
+}
+
+function toggleTheme() {
+	if (localStorage.getItem('theme') === 'theme-dark') {
+		setTheme('theme-light');
+		} else {
+			setTheme('theme-dark');
+		}
+	}
+
+	(function () {
+		if (localStorage.getItem('theme') === 'theme-dark') {
+			setTheme('theme-dark');
+		} else {
+			setTheme('theme-light');
+		}
+	})();
+
+
+//TIMED RELEASED CONTENT
+const today = new Date();
+
+function toUTC(date) {
+	return Date.UTC(
+	date.getFullYear(),
+	date.getMonth(),
+	date.getDate(),
+	date.getHours(),
+	date.getMinutes(),
+	date.getSeconds()
+	);
+}
+
+const wave1 = document.querySelectorAll("article.first-show");
+const wave2 = document.querySelectorAll("article.second-show");
+
+const testTime = new Date("2020-04-22T15:32");
+const testTimeTwo = new Date("2020-04-10T15:44");
+
+if (today >= testTime) {
+	wave1.forEach(n => n.style.display = "block");
+}
+if (today >= testTimeTwo) {
+	wave2.forEach(n => n.style.display = "block");
+}
+
+	</script>
+</html>
