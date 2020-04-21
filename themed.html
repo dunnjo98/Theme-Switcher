@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+	<title>Theme Switcher</title>
+
+	<link rel="stylesheet" type="text/css" title="one" href="theme_one.css">
+<link rel="alternate stylesheet" type="text/css" title="two" href="theme_two.css">
+
+	</head>
+
+	<body onload="set_style_from_cookie()">
+		<a class="choosey" type="button" onclick="theme_switcher('one');return false;" name="theme" value="Theme Dark" id="one">Dark Theme</a>
+		<a class="choosey" type="button" onclick="theme_switcher('two');return false;" name="theme" value="Theme Light" id="two">Light Theme</a>
+
+		<section class="holder">
+			<p>blah blah blah...</p>
+			<article class="first-show info" name="message 1">This is a message one</article>
+			<article class="second-show info" name="message 2">This is a message two</article>
+			<article class="first-show info" name="message 3">This is another message one</article>
+		</section>
+
+
+	</body>
+	<script>
+//Theme Swticher
+	function theme_switcher(css_title) {
+		let i, link_tag;
+		for (i = 0, link_tag = document.getElementsByTagName("link") ; i < link_tag.length ; i++ ) {
+			if((link_tag[i].rel.indexOf("stylesheet") != -1) && link_tag[i].title) {
+				link_tag[i].disabled = true;
+				if (link_tag[i].title === css_title) {
+					link_tag[i].disabled = false;
+				}
+			}
+		}
+	}
+
+//TIMED RELEASED CONTENT
+const today = new Date();
+
+function toUTC(date) {
+	return Date.UTC(
+	date.getFullYear(),
+	date.getMonth(),
+	date.getDate(),
+	date.getHours(),
+	date.getMinutes(),
+	date.getSeconds()
+	);
+}
+
+const wave1 = document.querySelectorAll("article.first-show");
+const wave2 = document.querySelectorAll("article.second-show");
+
+const testTime = new Date("2020-04-22T15:32");
+const testTimeTwo = new Date("2020-04-10T15:44");
+
+if (today >= testTime) {
+	wave1.forEach(n => n.style.display = "block");
+}
+if (today >= testTimeTwo) {
+	wave2.forEach(n => n.style.display = "block");
+}
+
+	</script>
+</html>

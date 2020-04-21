@@ -1,0 +1,24 @@
+* {
+	background: #000;
+	color: #fff;
+}
+.first-show, .second-show {
+	display: none;
+}
+.holder {
+	border: 1px solid white;
+	display: block;
+	position: relative;
+}
+.info {
+	border: 1px red solid;
+	padding: 25px;
+	margin: 2.5px;
+}
+.choosey {
+	width: 150px;
+	padding: 25px;
+	border: red 1px solid;
+	display: inline-block;
+	position: relative;
+}

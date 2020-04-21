@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+	<title>Theme Changer</title>
+
+	<link rel="stylesheet" type="text/css" title="one" href="theme_one.css">
+<link rel="alternate stylesheet" type="text/css" title="two" href="theme_two.css">
+
+	</head>
+
+	<body onload="set_style_from_cookie()">
+		<a class="choosey" type="button" onclick="theme_switcher('one');return false;" name="theme" value="Theme Dark" id="one">Dark Theme</a>
+		<a class="choosey" type="button" onclick="theme_switcher('two');return false;" name="theme" value="Theme Light" id="two">Light Theme</a>
+
+		<section class="holder">
+			<p>blah blah blah...</p>
+			<article class="first-show info" name="message 1">This is a message one</article>
+			<article class="second-show info" name="message 2">This is a message two</article>
+			<article class="first-show info" name="message 3">This is another message one</article>
+		</section>
+
+
+	</body>
+	<script>
+	const style_cookie_name = "style";
+	const style_cookie_duration = 30;
+	const style_domain = ""; //Whatever site this is on, this will save the cookies to maintain choosen style
+
+	function theme_switcher(css_title) {
+		let i, link_tag;
+		for (i = 0, link_tag = document.getElementsByTagName("link") ; i < link_tag.length ; i++ ) {
+			if((link_tag[i].rel.indexOf("stylesheet") != -1) && link_tag[i].title) {
+				link_tag[i].disabled = true;
+				if (link_tag[i].title === css_title) {
+					link_tag[i].disabled = false;
+				}
+			}
+			set_cookie(style_cookie_name, css_title, style_cookie_duration, style_domain);
+		}
+	}
+
+	function set_cookie (cookie_name, cookie_value, lifespan_in_days, valid_domain) {
+		const domain_string = valid_domain ? ("; domain" + valid_domain) : '' ; document.cookie = cookie_name + "=" + encodeURIComponent(cookie_value) + "; max-age=" + 60 * 60 * 24 * lifespan_in_days + "; path=/" + domain_string;
+	}
+	function set_style_from_cookie() {
+		const css_title = get_cookie(style_cookie_name);
+		if(css_title.length) {
+			switch_style(css_title);
+		}
+	}
+
+	function get_cookie(cookie_anme) {
+		const cookie_string = document.cookie;
+		if (cookie_string.length !=0) {
+			const cookie_array = cookie_string.split( '; ');
+			for (i=0; i < cookie.array.length; i++) {
+				cookie_value = cookie_array[i].match(cookie_name + '=(.*)');
+				if(cookie_value != null) {
+					return decideURIComponent(cookie_value[1]);
+				}
+			}
+		}
+		return '';
+	}
+
+//TIMED RELEASED CONTENT
+const today = new Date();
+
+function toUTC(date) {
+	return Date.UTC(
+	date.getFullYear(),
+	date.getMonth(),
+	date.getDate(),
+	date.getHours(),
+	date.getMinutes(),
+	date.getSeconds()
+	);
+}
+
+const wave1 = document.querySelectorAll("article.first-show");
+const wave2 = document.querySelectorAll("article.second-show");
+
+const testTime = new Date("2020-04-22T15:32");
+const testTimeTwo = new Date("2020-04-10T15:44");
+
+if (today >= testTime) {
+	wave1.forEach(n => n.style.display = "block");
+}
+if (today >= testTimeTwo) {
+	wave2.forEach(n => n.style.display = "block");
+}
+
+	</script>
+</html>
